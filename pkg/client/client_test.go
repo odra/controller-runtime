@@ -1793,6 +1793,8 @@ var _ = Describe("Client", func() {
 			Expect(mlo).NotTo(BeNil())
 			Expect(mlo.LabelSelector).To(Equal("foo=bar"))
 			Expect(mlo.FieldSelector).To(Equal("field1=bar"))
+			Expect(mlo.Limit).To(Equal(0))
+			Expect(mlo.Continue).To(Equal(""))
 		})
 
 		It("should be able to set MatchingLabels", func() {
