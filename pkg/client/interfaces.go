@@ -206,6 +206,15 @@ type ListOptions struct {
 	// that these may not be respected by all implementations of interface,
 	// and the LabelSelector and FieldSelector fields are ignored.
 	Raw *metav1.ListOptions
+
+	// Limit represents the maximum number of responses to return for a list call. If more items exist, the
+	// server will set the `continue` field to a value that can be used with the
+	// same initial query to retrieve the next set of results
+	Limit int64
+
+	// Continue represents a value to be used in the next query when there is a number of results
+	// that is bigger than the limit field specified in the previous query
+	Continue string
 }
 
 // SetLabelSelector sets this the label selector of these options
@@ -245,6 +254,10 @@ func (o *ListOptions) AsListOptions() *metav1.ListOptions {
 	if o.FieldSelector != nil {
 		o.Raw.FieldSelector = o.FieldSelector.String()
 	}
+
+	o.Raw.Limit = o.Limit
+	o.Raw.Continue = o.Continue
+
 	return o.Raw
 }
 
